@@ -23,7 +23,7 @@ let savingAccount = {
 let accounts = [checkingAccount, savingAccount]
 
 //すべてのアカウントをJSONで返すためのAPIエンドポイント
-//https://laced-protective-saw.glitch.me/api/accountsでAPI取得可能
+//https://bank-api.glitch.me/api/accountsでAPI取得可能
 app.get('/api/accounts',(req,res) => {
   res.json(accounts)
 })
