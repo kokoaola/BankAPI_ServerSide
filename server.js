@@ -6,15 +6,15 @@ const app = express();
 //ダミーのチェックアカウントとセービングアカウントを作成
 //これらのアカウントは実際にはデータベースなどには保存されない
 let checkingAccount = {
-                      name: 'John Doe',
+                      name: 'Koayama Koa',
                       id: '8ba35e1e-b5b8-47e8-a2a5-062df13fda38',
                       accountType: 'checking',
                       balance: 200
                         } 
 
 let savingAccount = {
-                      name: 'John Doe',
-                      id: '8ba35e1e-b5b8-47e8-a2a5-062df13fda38',
+                      name: 'Koayama Koa',
+                      id: '8ba35e1e-b5b8-47e8-a2a5-062df13fda39',
                       accountType: 'saving',
                       balance: 500
                         } 
