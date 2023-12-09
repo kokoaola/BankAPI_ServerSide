@@ -2,6 +2,8 @@
 const express = require("express");
 const app = express();
 
+//express.json()メソッド:Express.jsのミドルウェア
+//受信したJSONデータを解析、操作できるようにする
 app.use(express.json())
 
 
@@ -33,7 +35,13 @@ app.post('/api/accounts',(req,res) => {
   
   //プロパティから新しいオブジェクトを作成
   let account = {name: name, accountType: accountType, balance: balance}
-})
+  
+  //accounts配列に追加
+  accounts.push(account)
+  
+  //リクエストが処理された後にクライアントに応答オブジェクトを送信
+  res.json({success: true})
+  })
 
 
 //すべてのアカウントをJSONで返すためのAPIエンドポイント
