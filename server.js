@@ -2,6 +2,8 @@
 const express = require("express");
 const app = express();
 
+app.use(express.json())
+
 
 //ダミーのチェックアカウントとセービングアカウントを作成
 //これらのアカウントは実際にはデータベースなどには保存されない
@@ -21,6 +23,18 @@ let savingAccount = {
 
 //配列に格納
 let accounts = [checkingAccount, savingAccount]
+
+//投稿用URL
+app.post('/api/accounts',(req,res) => {
+  //アプリ側から送信されたreqのプロパティ（名前、口座の種類、残高）を抽出
+  let name = req.body.name
+  let accountType = req.body.accountType
+  let balance = req.body.balance
+  
+  //プロパティから新しいオブジェクトを作成
+  let account = {name: name, accountType: accountType, balance: balance}
+})
+
 
 //すべてのアカウントをJSONで返すためのAPIエンドポイント
 //https://bank-api.glitch.me/api/accountsでAPI取得可能
