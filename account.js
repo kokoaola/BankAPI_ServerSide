@@ -19,7 +19,7 @@ class Account{
     const account = this.getAccountByNameAndType(this.name, this.accountType)
     //重複していない場合はアカウントの ID を作成し、作成したアカウントを返す
     if(!account) {
-      this.id = uuidv4() 
+      this.id = uuidv4()
       completion(this)
     } else {
       //重複している場合はnullを返す
