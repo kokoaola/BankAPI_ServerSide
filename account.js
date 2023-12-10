@@ -4,10 +4,11 @@ let uuidv4 = require("./uuidv4.js")
 
 class Account{
   
-  counstructor(name, accountType, balance){
+  constructor(name, accountType, balance) {
     this.id = ""
-    this.accountType = accountType
-    this.balance = balance
+    this.name = name 
+    this.accountType = accountType 
+    this.balance = balance 
   }
   
   
@@ -17,19 +18,20 @@ class Account{
     //重複を確認
     const account = this.getAccountByNameAndType(this.name, this.accountType)
     //重複していない場合はアカウントの ID を作成し、作成したアカウントを返す
-    if(!account){
-      this.id = uuidv4()
+    if(!account) {
+      this.id = uuidv4() 
       completion(this)
-    }else{
+    } else {
       //重複している場合はnullを返す
       completion(null, 'User already has this type of account')
     }
   }
   
   //すでに同じユーザーで同じ種類の口座が登録していないか確認
-  getAccountByNameAndType(name, type){
-    return app.accounts.find(account => account.name == name && account.accountType == type) 
-    }
+  getAccountByNameAndType(name, type) {
+    return app.accounts.find(account => account.name == name && account.accountType == type)
+  }
+  
 }
 
 //他のファイルからrequire関数でインポートできるよう設定

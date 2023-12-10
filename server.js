@@ -13,6 +13,7 @@ app.use(express.json())
 
 
 //ダミーのチェックアカウントとセービングアカウントを作成
+//getのリクエストで返すデータ
 //これらのアカウントは実際にはデータベースなどには保存されない
 //new キーワードでアカウントの新しいインスタンスを作成
 let checkingAccount = new Account('Koayama Koa', 'checking', 200)
@@ -25,36 +26,34 @@ savingAccount.id = '8ba3aa1e-b5b8-aaaa-a2a5-062df13fss39'
 //他のクラスから呼び出す用のアカウント配列
 module.exports.accounts = [checkingAccount, savingAccount]
 //ローカル変数用のアカウント配列
-let accounts = module.exports.accounts
+let accounts = module.exports.accounts 
 
 
 //投稿用URLに対しての処理
 app.post('/api/accounts',(req,res) => {
   //アプリ側から送信されたreqのプロパティ（名前、口座の種類、残高）を抽出
-  let name = req.body.name
-  let accountType = req.body.accountType
+  let name = req.body.name 
+  let accountType = req.body.accountType 
   let balance = req.body.balance
   
   //プロパティから新しいオブジェクトを作成
   let account = new Account(name, accountType, balance)
   
   //accounts配列に追加
-  account.save((newAccount, error) =>{
+  account.save((newAccount, error) => {
     //newAccountがnullでない場合
     if(newAccount){
       //配列に新しい口座を追加し、成功のレスポンスをクライアントに送る
-      accounts.push(newAccount)
-      res.json({success: true})
+        accounts.push(newAccount)
+        res.json({success: true})
     }else{
       //newAccountがnullの場合
       //エラーのレスポンスを送る
-      res.json({success: false, error, error})
-    }
-  })
+        res.json({success: false, error: error})
+      }
+    })
   
-  // //リクエストが処理された後にクライアントに応答オブジェクトを送信
-  // res.json({success: true})
-  })
+})
 
 
 //すべてのアカウントをJSONで返すためのAPIエンドポイント
