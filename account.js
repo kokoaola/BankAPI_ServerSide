@@ -31,7 +31,6 @@ class Account{
   getAccountByNameAndType(name, type) {
     return app.accounts.find(account => account.name == name && account.accountType == type)
   }
-  
 }
 
 //他のファイルからrequire関数でインポートできるよう設定

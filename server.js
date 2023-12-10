@@ -43,6 +43,7 @@ app.post('/api/accounts',(req,res) => {
   account.save((newAccount, error) => {
     //newAccountがnullでない場合
     if(newAccount){
+      new
       //配列に新しい口座を追加し、成功のレスポンスをクライアントに送る
         accounts.push(newAccount)
         res.json({success: true})
