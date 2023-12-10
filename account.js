@@ -15,6 +15,7 @@ class Account{
   //データベースに保存する関数
   //完了後には、作成したアカウントを返す
   save(completion){
+    console.log(this.name)
     //重複を確認
     const account = this.getAccountByNameAndType(this.name, this.accountType)
     //重複していない場合はアカウントの ID を作成し、作成したアカウントを返す

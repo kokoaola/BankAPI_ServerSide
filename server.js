@@ -1,70 +1,72 @@
+//Expressフレームワークを使ったNode.jsアプリケーション
+
+//expressモジュールをNode.jsアプリケーションにインポート
 const express = require("express");
+//新しいExpressアプリケーションを作成
 const app = express();
+//指定したパスにあるaccount.jsファイルからAccountモジュールをインポート
 const Account = require("./account")
 
+//express.json()メソッド:Express.jsのミドルウェア
+//受信したJSONデータを解析、操作できるようにする
 app.use(express.json())
 
-let checkingAccount = new Account('John Doe','checking',200) 
-checkingAccount.id = '8ba35e1e-b5b8-47e8-a2a5-062df13fda38'
 
-let savingAccount = new Account('Mary Doe','saving',100)
-savingAccount.id = '553188b1-586d-4a09-805a-98ab792f5754'
+//ダミーのチェックアカウントとセービングアカウントを作成
+//getのリクエストで返すデータ
+//これらのアカウントは実際にはデータベースなどには保存されない
+//new キーワードでアカウントの新しいインスタンスを作成
+let checkingAccount = new Account('Koayama Koa', 'checking', 200)
+checkingAccount.id = '8ba3aa1e-b5b8-47e8-a2a5-062df13fda39'
 
+let savingAccount = new Account('Koayama Koaa', 'saving', 200)
+savingAccount.id = '8ba3aa1e-b5b8-aaaa-a2a5-062df13fss39'
+
+//配列に格納
+//他のクラスから呼び出す用のアカウント配列
 module.exports.accounts = [checkingAccount, savingAccount]
+//ローカル変数用のアカウント配列
 let accounts = module.exports.accounts 
 
+
+//投稿用URLに対しての処理
 app.post('/api/accounts',(req,res) => {
-  
+  //アプリ側から送信されたreqのプロパティ（名前、口座の種類、残高）を抽出
   let name = req.body.name 
   let accountType = req.body.accountType 
-  let balance = req.body.balance 
+  let balance = req.body.balance
   
+  //プロパティから新しいオブジェクトを作成
   let account = new Account(name, accountType, balance)
-   
-    account.save((newAccount, error) => {
-      if(newAccount) {
+  
+  //accounts配列に追加
+  account.save((newAccount, error) => {
+    //newAccountがnullでない場合
+    if(newAccount){
+      //配列に新しい口座を追加し、成功のレスポンスをクライアントに送る
         accounts.push(newAccount)
         res.json({success: true})
-      } else {
+    }else{
+      //newAccountがnullの場合
+      //エラーのレスポンスを送る
         res.json({success: false, error: error})
       }
     })
   
 })
 
-app.post('/api/accounts',(req,res) => {
-  
-  console.log(req.body)
-  
-  let accountFromId = req.body.accountFromId 
-  let accountToId = req.body.accountToId 
-  let amount = req.body.amount 
-  
-  let fromAccount = accounts.find(account => account.id == accountFromId)
-  let toAccount = accounts.find(account => account.id == accountToId)
-  
-  fromAccount.transfer(toAccount, amount, (transferred, error) => {
-    if(transferred) {
-      res.json({success: true})
-    } else {
-      res.json({success: false, error: error})
-    }
-  })
-  
-  
-})
 
-
+//すべてのアカウントをJSONで返すためのAPIエンドポイント
+//https://bank-api.glitch.me/api/accountsでAPI取得可能
 app.get('/api/accounts',(req,res) => {
   res.json(accounts)
 })
 
-
-
-// listen for requests :)
+//サーバーを起動してリクエストを待機
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
+
 
 
 
