@@ -24,7 +24,11 @@ let savingAccount = {
                         } 
 
 //配列に格納
-let accounts = [checkingAccount, savingAccount]
+//他のクラスから呼び出す用
+module.exports.accounts = [checkingAccount, savingAccount]
+//ローカル変数用
+let accounts = module.exports.accounts
+
 
 //投稿用URL
 app.post('/api/accounts',(req,res) => {
