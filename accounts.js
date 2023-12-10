@@ -21,7 +21,7 @@ class Account{
       this.id = uuidv4()
       completion(this)
     }else{
-      //じゅう
+      //重複している場合はnullを返す
       completion(null, 'User already has this type of account')
     }
   }
@@ -31,3 +31,6 @@ class Account{
     return app.accounts.find(account => account.name == name && account.accountType == type) 
     }
 }
+
+//他のファイルからrequire関数でインポートできるよう設定
+module.exports = Account
