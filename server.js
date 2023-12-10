@@ -18,8 +18,8 @@ app.use(express.json())
 let checkingAccount = new Account('Koayama Koa', 'checking', 200)
 checkingAccount.id = '8ba3aa1e-b5b8-47e8-a2a5-062df13fda39'
 
-let savingAccount = new Account('Koayama Koa', 'checking', 200)
-savingAccount.id = '8ba3aa1e-b5b8-aaaa-a2a5-062df13fda39'
+let savingAccount = new Account('Koayama Koaa', 'saving', 200)
+savingAccount.id = '8ba3aa1e-b5b8-aaaa-a2a5-062df13fss39'
 
 //配列に格納
 //他のクラスから呼び出す用のアカウント配列
