@@ -1,5 +1,6 @@
 //server.jsからエクスポートされたものが処理できるようになる
 let app = require("./server.js")
+let uuidv4 = require("./uuidv4.js")
 
 class Account{
   
@@ -11,10 +12,18 @@ class Account{
   
   
   //データベースに保存する関数
-  //完了後にはコールバック関数を呼びだす
+  //完了後には、作成したアカウントを返す
   save(completion){
-    const account = this.getAccountByNameAndType(this.name, this.account)
-    
+    //重複を確認
+    const account = this.getAccountByNameAndType(this.name, this.accountType)
+    //重複していない場合はアカウントの ID を作成し、作成したアカウントを返す
+    if(!account){
+      this.id = uuidv4()
+      completion(this)
+    }else{
+      //じゅう
+      completion(null, 'User already has this type of account')
+    }
   }
   
   //すでに同じユーザーで同じ種類の口座が登録していないか確認
