@@ -16,12 +16,16 @@ app.use(express.json())
 //getのリクエストで返すデータ
 //これらのアカウントは実際にはデータベースなどには保存されない
 //new キーワードでアカウントの新しいインスタンスを作成
-let checkingAccount = new Account('Koayama Koa', 'checking', 200)
-checkingAccount.id = '8ba3aa1e-b5b8-47e8-a2a5-062df13fda39'
+// let checkingAccount = new Account('Koayama Koa', 'checking', 200)
+// checkingAccount.id = '8ba3aa1e-b5b8-47e8-a2a5-062df13fda39'
 
-let savingAccount = new Account('Koayama Koaa', 'saving', 200)
-savingAccount.id = '8ba3aa1e-b5b8-aaaa-a2a5-062df13fss39'
+// let savingAccount = new Account('Koayama Koaa', 'saving', 200)
+// savingAccount.id = '8ba3aa1e-b5b8-aaaa-a2a5-062df13fss39'
+let checkingAccount = new Account('John Doe','checking', 200)
+checkingAccount.id = '8ba35e1e-b5b8-47e8-a2a5-062df13fda38'
 
+let savingAccount = new Account('Mary Doe','saving', 200)
+savingAccount.id = '553188b1-586d-4a09-805a-98ab792f5754'
 //配列に格納
 //他のクラスから呼び出す用のアカウント配列
 module.exports.accounts = [checkingAccount, savingAccount]
