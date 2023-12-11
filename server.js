@@ -57,7 +57,7 @@ app.post('/api/accounts',(req,res) => {
 
 
 
-// 送金用URL'/api/transfer'へのPOSTリクエストの処理
+// 送金用URL'https://bank-api.glitch.me/api/transfer/api/transfer'へのPOSTリクエストの処理
 app.post('/api/transfer', (req, res) => {
   
   // リクエストのボディをコンソールに出力（デバッグ用）
