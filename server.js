@@ -21,16 +21,13 @@ checkingAccount.id = '8ba3aa1e-b5b8-47e8-a2a5-062df13fda39'
 
 let savingAccount = new Account('Koayama Koaa', 'saving', 200)
 savingAccount.id = '553188b1-586d-4a09-805a-98ab792f5754'
-// let checkingAccount = new Account('John Doe','checking', 200)
-// checkingAccount.id = '8ba35e1e-b5b8-47e8-a2a5-062df13fda38'
 
-// let savingAccount = new Account('Mary Doe','saving', 200)
-// savingAccount.id = '553188b1-586d-4a09-805a-98ab792f5754'
 //配列に格納
 //他のクラスから呼び出す用のアカウント配列
 module.exports.accounts = [checkingAccount, savingAccount]
 //ローカル変数用のアカウント配列
 let accounts = module.exports.accounts 
+
 
 
 //投稿用URLに対しての処理
@@ -56,7 +53,36 @@ app.post('/api/accounts',(req,res) => {
         res.json({success: false, error: error})
       }
     })
+})
+
+
+
+// 送金用URL'/api/transfer'へのPOSTリクエストの処理
+app.post('/api/transfer', (req, res) => {
   
+  // リクエストのボディをコンソールに出力（デバッグ用）
+  console.log(req.body)
+  
+  // リクエストから送金元と送金先のアカウントID、送金額を取得
+  let accountFromId = req.body.accountFromId 
+  let accountToId = req.body.accountToId 
+  let amount = req.body.amount 
+  
+  // accounts配列から送金元と送金先のアカウントを検索
+  let fromAccount = accounts.find(account => account.id == accountFromId)
+  let toAccount = accounts.find(account => account.id == accountToId)
+  
+  // fromAccountのtransferメソッドを呼び出して送金処理
+  // 完了後のコールバックで成功か失敗かをレスポンスとしてクライアントに送信
+  fromAccount.transfer(toAccount, amount, (transferred, error) => {
+    if (transferred) {
+      // 送金成功時: trueを送信
+      res.json({success: true})
+    } else {
+      // 送金失敗時: falseとエラーメッセージを送信
+      res.json({success: false, error: error})
+    }
+  })
 })
 
 

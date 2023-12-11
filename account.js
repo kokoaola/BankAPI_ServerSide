@@ -12,6 +12,7 @@ class Account{
   }
   
   
+  
   //データベースに保存する関数
   //完了後には、作成したアカウントを返す
   save(completion){
@@ -28,11 +29,44 @@ class Account{
     }
   }
   
-  //すでに同じユーザーで同じ種類の口座が登録していないか確認
+  
+  
+  //すでに同じユーザーで同じ種類の口座が登録していないか確認する関数
   getAccountByNameAndType(name, type) {
     return app.accounts.find(account => account.name == name && account.accountType == type)
   }
+  
+  
+  
+  //別のアカウントに送金する関数
+  transfer(toAccount, amount, completion) {
+    //残高が総金額よりも多いか確認
+    if((this.balance - amount) < 0) {
+      completion(false, "Insufficient funds!")
+      return 
+    }
+    //
+    this.withdraw(amount)
+    toAccount.deposit(amount)
+    //成功後はコールバックでtrueを返す
+    completion(true)
+  }
+  
+  
+  //送金元から残高を引き落とす
+    deposit(amount) {
+    this.balance += amount 
+  }
+  
+  
+  //送金先へ追加する
+  withdraw(amount) {
+    this.balance -= amount 
+  }
+  
+  
 }
+
 
 //他のファイルからrequire関数でインポートできるよう設定
 module.exports = Account
