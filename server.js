@@ -30,7 +30,7 @@ let accounts = module.exports.accounts
 
 
 
-//投稿用URLに対しての処理
+//アカウント追加用URL'https://bank-api.glitch.me/api/accounts'に対しての処理
 app.post('/api/accounts',(req,res) => {
   //アプリ側から送信されたreqのプロパティ（名前、口座の種類、残高）を抽出
   let name = req.body.name 
